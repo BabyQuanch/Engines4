@@ -23,20 +23,21 @@ bool CoreEngine::OnCreate(std::string name_, int width_, int height_)
 	Debug::OnCreate();
 	window = new Window();
 	if (!window->OnCreate(name_ , width_ ,height_ )) {
-		std::cout << "window failed to initialize" << std::endl;
+		Debug::FatalError("Failed to initialize window", "CoreEngine.cpp", __LINE__);
 		OnDestroy();
 		return isRunning = false;
 	}
-
+	Debug::Info("everything worked", "CoreEngine.cpp", __LINE__);
 	if (gameInterface) {
+		Debug::Info("everything worked", "CoreEngine.cpp", __LINE__);
 		if (!gameInterface->OnCreate()) {
-			std::cout << "game failed to initialize" << std::endl;
+			Debug::FatalError("Failed to initialize Game Interface", "CoreEngine.cpp", __LINE__);
 			OnDestroy();
 			return isRunning = false;
 		}
 	}
 
-	Debug::Info("everything worked", "CoreEngine.cpp", __LINE__);
+	
 	timer.Start();
 	return isRunning = true;
 }
